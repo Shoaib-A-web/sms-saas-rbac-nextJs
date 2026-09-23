@@ -1,4 +1,4 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -23,4 +23,509 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+} */
+
+
+
+
+
+/* app/globals.css */
+
+@import "tailwindcss";
+
+/* =========================================================
+   BASE DESIGN TOKENS
+   ========================================================= */
+
+:root {
+  /* -------------------------------------------------------
+     Typography
+     ------------------------------------------------------- */
+
+  --font-family: "Inter", Arial, Helvetica, sans-serif;
+
+  --font-size-page-title: 1.875rem;
+  --font-size-section-title: 1.25rem;
+  --font-size-card-title: 1rem;
+  --font-size-body: 0.875rem;
+  --font-size-small: 0.75rem;
+  --font-size-label: 0.8125rem;
+
+  --line-height-page-title: 2.25rem;
+  --line-height-section-title: 1.75rem;
+  --line-height-card-title: 1.5rem;
+  --line-height-body: 1.25rem;
+  --line-height-small: 1rem;
+  --line-height-label: 1.125rem;
+
+  /* -------------------------------------------------------
+     Radius
+     ------------------------------------------------------- */
+
+  --radius-none: 0;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-full: 9999px;
+
+  /* -------------------------------------------------------
+     Spacing
+     ------------------------------------------------------- */
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.25rem;
+  --space-2xl: 1.5rem;
+  --space-3xl: 2rem;
+  --space-4xl: 2.5rem;
+  --space-5xl: 3rem;
+  --space-6xl: 4rem;
+
+  /* -------------------------------------------------------
+     Border
+     ------------------------------------------------------- */
+
+  --border-width-none: 0;
+  --border-width-thin: 1px;
+  --border-width-medium: 1.5px;
+  --border-width-strong: 2px;
+
+  /* -------------------------------------------------------
+     Shadows
+     ------------------------------------------------------- */
+
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 10px 30px rgb(0 0 0 / 0.10);
+  --shadow-xl: 0 20px 50px rgb(0 0 0 / 0.15);
+
+  /* -------------------------------------------------------
+     Animation
+     ------------------------------------------------------- */
+
+  --duration-fast: 100ms;
+  --duration-normal: 150ms;
+  --duration-slow: 250ms;
+
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* -------------------------------------------------------
+     Glassmorphism
+     ------------------------------------------------------- */
+
+  --glass-blur: 16px;
+  --glass-saturation: 140%;
+
+  /* -------------------------------------------------------
+     Default Theme
+     ------------------------------------------------------- */
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-foreground: #ffffff;
+
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f1f5f9;
+
+  --color-foreground: #0f172a;
+  --color-foreground-muted: #64748b;
+
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+  --color-info: #0284c7;
+
+  --color-glass-background: rgba(255, 255, 255, 0.72);
+  --color-glass-border: rgba(255, 255, 255, 0.45);
+
+  /* -------------------------------------------------------
+     Density
+     ------------------------------------------------------- */
+
+  --page-padding: 1.5rem;
+  --card-padding: 1.25rem;
+  --table-cell-padding: 0.75rem 1rem;
+  --layout-gap: 1rem;
+}
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+.dark {
+  --color-primary: #3b82f6;
+  --color-primary-hover: #60a5fa;
+  --color-primary-foreground: #ffffff;
+
+  --color-background: #020617;
+  --color-surface: #0f172a;
+  --color-surface-muted: #1e293b;
+
+  --color-foreground: #f8fafc;
+  --color-foreground-muted: #94a3b8;
+
+  --color-border: #1e293b;
+  --color-border-strong: #334155;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #38bdf8;
+
+  --color-glass-background: rgba(15, 23, 42, 0.72);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   BASE ELEMENTS
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+
+  background: var(--color-background);
+  color: var(--color-foreground);
+
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+
+  transition:
+    background-color var(--duration-normal) var(--ease-default),
+    color var(--duration-normal) var(--ease-default);
+}
+
+/* =========================================================
+   SELECTION
+   ========================================================= */
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color:
+    var(--color-border-strong)
+    var(--color-background);
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
+   TYPOGRAPHY UTILITIES
+   ========================================================= */
+
+.ui-page-title {
+  font-size: var(--font-size-page-title);
+  line-height: var(--line-height-page-title);
+  font-weight: 700;
+}
+
+.ui-section-title {
+  font-size: var(--font-size-section-title);
+  line-height: var(--line-height-section-title);
+  font-weight: 600;
+}
+
+.ui-card-title {
+  font-size: var(--font-size-card-title);
+  line-height: var(--line-height-card-title);
+  font-weight: 600;
+}
+
+.ui-body {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.ui-small {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.ui-label {
+  font-size: var(--font-size-label);
+  line-height: var(--line-height-label);
+  font-weight: 500;
+}
+
+/* =========================================================
+   GLASS
+   ========================================================= */
+
+.ui-glass {
+  background: var(--color-glass-background);
+  border: 1px solid var(--color-glass-border);
+
+  backdrop-filter:
+    blur(var(--glass-blur))
+    saturate(var(--glass-saturation));
+
+  -webkit-backdrop-filter:
+    blur(var(--glass-blur))
+    saturate(var(--glass-saturation));
+}
+
+/* =========================================================
+   SURFACES
+   ========================================================= */
+
+.ui-surface {
+  background: var(--color-surface);
+  color: var(--color-foreground);
+}
+
+.ui-surface-muted {
+  background: var(--color-surface-muted);
+  color: var(--color-foreground);
+}
+
+/* =========================================================
+   PAGE CONTAINER
+   ========================================================= */
+
+.ui-page {
+  width: 100%;
+  min-height: 100%;
+
+  padding: var(--page-padding);
+}
+
+/* =========================================================
+   RESPONSIVE PAGE PADDING
+   ========================================================= */
+
+@media (max-width: 640px) {
+  :root {
+    --page-padding: 1rem;
+    --card-padding: 1rem;
+    --table-cell-padding: 0.625rem 0.75rem;
+    --layout-gap: 0.75rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --page-padding: 2rem;
+  }
+}
+
+
+/*--------------------------------------------------------------------------------------------*/
+
+
+
+
+/* =========================================================
+   COMPONENT UTILITIES
+   ========================================================= */
+
+.ui-border {
+  border: var(--border-width-thin) solid var(--color-border);
+}
+
+.ui-border-strong {
+  border: var(--border-width-thin) solid var(--color-border-strong);
+}
+
+.ui-card {
+  background: var(--color-surface);
+  color: var(--color-foreground);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.ui-transition {
+  transition:
+    color var(--duration-normal) var(--ease-default),
+    background-color var(--duration-normal) var(--ease-default),
+    border-color var(--duration-normal) var(--ease-default),
+    box-shadow var(--duration-normal) var(--ease-default),
+    opacity var(--duration-normal) var(--ease-default),
+    transform var(--duration-normal) var(--ease-default);
+}
+
+/* =========================================================
+   PAGE ANIMATION
+   ========================================================= */
+
+@keyframes ui-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ui-page-enter {
+  animation: ui-page-enter var(--duration-normal) var(--ease-default);
+}
+
+/* =========================================================
+   MODAL ANIMATION
+   ========================================================= */
+
+@keyframes ui-modal-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.ui-modal-enter {
+  animation: ui-modal-enter var(--duration-normal) var(--ease-default);
+}
+
+/* =========================================================
+   DROPDOWN ANIMATION
+   ========================================================= */
+
+@keyframes ui-dropdown-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ui-dropdown-enter {
+  animation: ui-dropdown-enter var(--duration-fast) var(--ease-default);
+}
+
+/* =========================================================
+   SKELETON
+   ========================================================= */
+
+@keyframes ui-skeleton {
+  0% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.55;
+  }
+}
+
+.ui-skeleton {
+  animation: ui-skeleton 1.5s ease-in-out infinite;
+}
+
+/* =========================================================
+   SCROLL AREA
+   ========================================================= */
+
+.ui-scroll {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color:
+    var(--color-border-strong)
+    transparent;
+}
+
+/* =========================================================
+   FORM ERROR
+   ========================================================= */
+
+.ui-form-error {
+  color: var(--color-danger);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .ui-page-title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-page-enter,
+  .ui-modal-enter,
+  .ui-dropdown-enter,
+  .ui-skeleton {
+    animation: none;
+  }
+
+  .ui-transition {
+    transition: none;
+  }
 }
