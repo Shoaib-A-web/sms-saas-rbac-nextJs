@@ -61,13 +61,7 @@ export default function Sidebar({
     <>
       {open && (
         <div
-          className="
-            fixed
-            inset-0
-            z-40
-            bg-black/40
-            lg:hidden
-          "
+          className=" fixed inset-0 z-40 bg-black/40 lg:hidden "
           onClick={onClose}
         />
       )}
@@ -102,17 +96,7 @@ export default function Sidebar({
             href="/dashboard"
             className="flex items-center gap-3"
           >
-            <div className="
-              flex
-              size-9
-              items-center
-              justify-center
-              rounded-[var(--radius-md)]
-              bg-[var(--color-primary)]
-              text-sm
-              font-bold
-              text-[var(--color-primary-foreground)]
-            ">
+            <div className=" flex size-9 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-primary)] text-sm font-bold text-[var(--color-primary-foreground)] ">
               S
             </div>
 
@@ -130,11 +114,7 @@ export default function Sidebar({
           <button
             type="button"
             onClick={onClose}
-            className="
-              rounded-[var(--radius-md)]
-              p-1.5
-              lg:hidden
-            "
+            className=" rounded-[var(--radius-md)] p-1.5 lg:hidden "
             aria-label="Close navigation"
           >
             <X size={18} />
@@ -191,14 +171,7 @@ export default function Sidebar({
 
         {/* Bottom */}
         <div className="border-t border-[var(--color-border)] p-3">
-          <div className="
-            flex
-            items-center
-            gap-3
-            rounded-[var(--radius-md)]
-            bg-[var(--color-surface-muted)]
-            p-3
-          ">
+          <div className=" flex items-center gap-3 rounded-[var(--radius-md)] bg-[var(--color-surface-muted)] p-3 ">
             <ShieldCheck
               size={20}
               className="text-[var(--color-primary)]"

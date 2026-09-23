@@ -8,16 +8,7 @@ export default function EmptyState({
 }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
-      <div className="
-        mb-4
-        flex
-        size-12
-        items-center
-        justify-center
-        rounded-[var(--radius-full)]
-        bg-[var(--color-surface-muted)]
-        text-[var(--color-foreground-muted)]
-      ">
+      <div className="mb-4 flex size-12 items-center justify-center rounded-[var(--radius-full)] bg-[var(--color-surface-muted)] text-[var(--color-foreground-muted)]">
         {icon || <Inbox size={22} />}
       </div>
 

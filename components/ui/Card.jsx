@@ -8,19 +8,7 @@ export default function Card({
 }) {
   return (
     <section
-      className={`
-        rounded-[var(--radius-lg)]
-        border
-        border-[var(--color-border)]
-        ${
-          glass
-            ? "ui-glass"
-            : "bg-[var(--color-surface)]"
-        }
-        text-[var(--color-foreground)]
-        shadow-[var(--shadow-sm)]
-        ${className}
-      `}
+      className={`rounded-[var(--radius-lg)] border border-[var(--color-border)] ${glass ? "ui-glass" : "bg-[var(--color-surface)]"} text-[var(--color-foreground)] shadow-[var(--shadow-sm)] ${className}`}
     >
       {(title || description || action) && (
         <div className="flex items-start justify-between gap-4 border-b border-[var(--color-border)] px-5 py-4">

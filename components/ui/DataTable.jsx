@@ -38,14 +38,7 @@ export default function DataTable({
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className="
-                    px-3
-                    py-2.5
-                    text-left
-                    text-xs
-                    font-semibold
-                    text-[var(--color-foreground-muted)]
-                  "
+                  className="px-3 py-2.5 text-left text-xs font-semibold text-[var(--color-foreground-muted)]"
                 >
                   {column.label}
                 </th>
@@ -58,13 +51,7 @@ export default function DataTable({
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="
-                    px-4
-                    py-12
-                    text-center
-                    text-sm
-                    text-[var(--color-foreground-muted)]
-                  "
+                  className="px-4 py-12 text-center text-sm text-[var(--color-foreground-muted)]"
                 >
                   {emptyMessage}
                 </td>
@@ -73,22 +60,12 @@ export default function DataTable({
               data.map((row, index) => (
                 <tr
                   key={row[rowKey] ?? index}
-                  className="
-                    border-b
-                    border-[var(--color-border)]
-                    last:border-b-0
-                    hover:bg-[var(--color-surface-muted)]
-                  "
+                  className="border-b border-[var(--color-border)] last:border-b-0 hover:bg-[var(--color-surface-muted)]"
                 >
                   {columns.map((column) => (
                     <td
                       key={column.key}
-                      className="
-                        px-3
-                        py-2.5
-                        text-sm
-                        text-[var(--color-foreground)]
-                      "
+                      className="px-3 py-2.5 text-sm text-[var(--color-foreground)]"
                     >
                       {column.render
                         ? column.render(

@@ -7,16 +7,7 @@ export default function ErrorState({
 }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
-      <div className="
-        mb-4
-        flex
-        size-12
-        items-center
-        justify-center
-        rounded-full
-        bg-red-500/10
-        text-[var(--color-danger)]
-      ">
+      <div className="mb-4 flex size-12 items-center justify-center rounded-full bg-red-500/10 text-[var(--color-danger)]">
         <AlertCircle size={22} />
       </div>
 

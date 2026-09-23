@@ -4,36 +4,15 @@ import { forwardRef } from "react";
 import { Loader2 } from "lucide-react";
 
 const variants = {
-  primary: `
-    bg-[var(--color-primary)]
-    text-[var(--color-primary-foreground)]
-    hover:bg-[var(--color-primary-hover)]
-  `,
+  primary: `bg-[var(--color-primary)] text-[var(--color-primary-foreground)] hover:bg-[var(--color-primary-hover)]`,
 
-  secondary: `
-    bg-[var(--color-surface-muted)]
-    text-[var(--color-foreground)]
-    hover:bg-[var(--color-border)]
-  `,
+  secondary: `bg-[var(--color-surface-muted)] text-[var(--color-foreground)] hover:bg-[var(--color-border)]`,
 
-  outline: `
-    bg-transparent
-    text-[var(--color-foreground)]
-    border border-[var(--color-border)]
-    hover:bg-[var(--color-surface-muted)]
-  `,
+  outline: `bg-transparent text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-surface-muted)]`,
 
-  ghost: `
-    bg-transparent
-    text-[var(--color-foreground)]
-    hover:bg-[var(--color-surface-muted)]
-  `,
+  ghost: `bg-transparent text-[var(--color-foreground)] hover:bg-[var(--color-surface-muted)]`,
 
-  danger: `
-    bg-[var(--color-danger)]
-    text-white
-    hover:opacity-90
-  `,
+  danger: `bg-[var(--color-danger)] text-white hover:opacity-90`,
 };
 
 const sizes = {
@@ -60,25 +39,7 @@ const Button = forwardRef(function Button(
       ref={ref}
       type={type}
       disabled={disabled || loading}
-      className={`
-        inline-flex
-        items-center
-        justify-center
-        gap-2
-        whitespace-nowrap
-        rounded-[var(--radius-md)]
-        font-medium
-        ui-transition
-        focus-visible:outline-none
-        focus-visible:ring-2
-        focus-visible:ring-[var(--color-primary)]
-        focus-visible:ring-offset-2
-        disabled:cursor-not-allowed
-        disabled:opacity-50
-        ${variants[variant]}
-        ${sizes[size]}
-        ${className}
-      `}
+      className={`inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] font-medium ui-transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${sizes[size]} ${className}`}
       {...props}
     >
       {loading && (

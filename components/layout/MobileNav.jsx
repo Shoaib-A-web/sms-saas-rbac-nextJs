@@ -41,17 +41,7 @@ export default function MobileNav() {
 
   return (
     <nav
-      className="
-        fixed
-        bottom-0
-        left-0
-        right-0
-        z-40
-        border-t
-        border-[var(--color-border)]
-        ui-glass
-        lg:hidden
-      "
+      className="fixed bottom-0 left-0 right-0 z-40 border-t border-[var(--color-border)] ui-glass lg:hidden"
     >
       <div className="grid grid-cols-4">
         {navigation.map((item) => {
@@ -67,22 +57,7 @@ export default function MobileNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`
-                flex
-                flex-col
-                items-center
-                gap-1
-                px-2
-                py-2
-                text-[10px]
-                font-medium
-                ui-transition
-                ${
-                  active
-                    ? "text-[var(--color-primary)]"
-                    : "text-[var(--color-foreground-muted)]"
-                }
-              `}
+              className={`flex flex-col items-center gap-1 px-2 py-2 text-[10px] font-medium ui-transition ${active ? "text-[var(--color-primary)]" : "text-[var(--color-foreground-muted)]"}`}
             >
               <Icon size={20} />
 

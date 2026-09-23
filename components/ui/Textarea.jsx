@@ -27,32 +27,7 @@ const Textarea = forwardRef(function Textarea(
       <textarea
         ref={ref}
         id={id}
-        className={`
-          min-h-24
-          w-full
-          resize-y
-          rounded-[var(--radius-md)]
-          border
-          bg-[var(--color-surface)]
-          px-3
-          py-2.5
-          text-sm
-          text-[var(--color-foreground)]
-          placeholder:text-[var(--color-foreground-muted)]
-          ui-transition
-          focus:border-[var(--color-primary)]
-          focus:outline-none
-          focus:ring-2
-          focus:ring-[var(--color-primary)]
-          disabled:cursor-not-allowed
-          disabled:opacity-50
-          ${
-            error
-              ? "border-[var(--color-danger)]"
-              : "border-[var(--color-border)]"
-          }
-          ${className}
-        `}
+        className={`min-h-24 w-full resize-y rounded-[var(--radius-md)] border bg-[var(--color-surface)] px-3 py-2.5 text-sm text-[var(--color-foreground)] placeholder:text-[var(--color-foreground-muted)] ui-transition focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50 ${error ? "border-[var(--color-danger)]" : "border-[var(--color-border)]"} ${className}`}
         {...props}
       />
 

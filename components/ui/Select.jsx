@@ -30,31 +30,7 @@ const Select = forwardRef(function Select(
         <select
           ref={ref}
           id={id}
-          className={`
-            h-10
-            w-full
-            appearance-none
-            rounded-[var(--radius-md)]
-            border
-            bg-[var(--color-surface)]
-            px-3
-            pr-10
-            text-sm
-            text-[var(--color-foreground)]
-            ui-transition
-            focus:border-[var(--color-primary)]
-            focus:outline-none
-            focus:ring-2
-            focus:ring-[var(--color-primary)]
-            disabled:cursor-not-allowed
-            disabled:opacity-50
-            ${
-              error
-                ? "border-[var(--color-danger)]"
-                : "border-[var(--color-border)]"
-            }
-            ${className}
-          `}
+          className={`h-10 w-full appearance-none rounded-[var(--radius-md)] border bg-[var(--color-surface)] px-3 pr-10 text-sm text-[var(--color-foreground)] ui-transition focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50 ${error ? "border-[var(--color-danger)]" : "border-[var(--color-border)]"} ${className}`}
           {...props}
         >
           {children}
@@ -62,14 +38,7 @@ const Select = forwardRef(function Select(
 
         <ChevronDown
           size={16}
-          className="
-            pointer-events-none
-            absolute
-            right-3
-            top-1/2
-            -translate-y-1/2
-            text-[var(--color-foreground-muted)]
-          "
+          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-foreground-muted)]"
         />
       </div>
 

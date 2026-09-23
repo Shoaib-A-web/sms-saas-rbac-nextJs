@@ -14,23 +14,13 @@ const Checkbox = forwardRef(function Checkbox(
   return (
     <label
       htmlFor={id}
-      className="
-        flex
-        cursor-pointer
-        items-start
-        gap-3
-      "
+      className="flex cursor-pointer items-start gap-3"
     >
       <input
         ref={ref}
         id={id}
         type="checkbox"
-        className="
-          mt-0.5
-          size-4
-          cursor-pointer
-          accent-[var(--color-primary)]
-        "
+        className="mt-0.5 size-4 cursor-pointer accent-[var(--color-primary)]"
         {...props}
       />
 

@@ -55,16 +55,7 @@ export default function Modal({
 
   return (
     <div
-      className="
-        fixed
-        inset-0
-        z-50
-        flex
-        items-center
-        justify-center
-        bg-black/40
-        p-4
-      "
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           onClose?.();
@@ -75,18 +66,7 @@ export default function Modal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        className={`
-          ui-modal-enter
-          w-full
-          ${sizes[size]}
-          overflow-hidden
-          rounded-[var(--radius-xl)]
-          border
-          border-[var(--color-border)]
-          bg-[var(--color-surface)]
-          text-[var(--color-foreground)]
-          shadow-[var(--shadow-xl)]
-        `}
+        className={`ui-modal-enter w-full ${sizes[size]} overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-foreground)] shadow-[var(--shadow-xl)]`}
       >
         <div className="flex items-start justify-between gap-4 border-b border-[var(--color-border)] px-5 py-4">
           <div>
@@ -108,14 +88,7 @@ export default function Modal({
             type="button"
             onClick={onClose}
             aria-label="Close modal"
-            className="
-              rounded-[var(--radius-md)]
-              p-1.5
-              text-[var(--color-foreground-muted)]
-              ui-transition
-              hover:bg-[var(--color-surface-muted)]
-              hover:text-[var(--color-foreground)]
-            "
+            className="rounded-[var(--radius-md)] p-1.5 text-[var(--color-foreground-muted)] ui-transition hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-foreground)]"
           >
             <X size={18} />
           </button>

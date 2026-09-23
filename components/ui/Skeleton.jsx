@@ -4,12 +4,7 @@ export default function Skeleton({
   return (
     <div
       aria-hidden="true"
-      className={`
-        ui-skeleton
-        rounded-[var(--radius-md)]
-        bg-[var(--color-surface-muted)]
-        ${className}
-      `}
+      className={`ui-skeleton rounded-[var(--radius-md)] bg-[var(--color-surface-muted)] ${className}`}
     />
   );
 }

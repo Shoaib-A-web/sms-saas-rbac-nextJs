@@ -7,11 +7,7 @@ export default function Spinner({
   return (
     <Loader2
       size={size}
-      className={`
-        animate-spin
-        text-[var(--color-primary)]
-        ${className}
-      `}
+      className={`animate-spin text-[var(--color-primary)] ${className}`}
       aria-label="Loading"
     />
   );

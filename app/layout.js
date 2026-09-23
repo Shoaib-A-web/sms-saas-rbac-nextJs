@@ -33,6 +33,8 @@
 
 import "./globals.css";
 
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+
 export const metadata = {
   title: "SMS SaaS",
   description: "School Management SaaS",
@@ -41,7 +43,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
