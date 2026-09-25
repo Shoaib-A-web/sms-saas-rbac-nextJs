@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 import {
@@ -19,6 +19,9 @@ import Select from "@/components/ui/Select";
 import Badge from "@/components/ui/Badge";
 import DataTable from "@/components/ui/DataTable";
 import ConfirmDialog from "@/components/shared/ConfirmDialog";
+import Skeleton from "@/components/ui/Skeleton";
+
+import { studentsApi } from "@/lib/api/students";
 
 const students = [
   {
@@ -73,6 +76,10 @@ const students = [
 ];
 
 export default function StudentsPage() {
+  // const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [search, setSearch] =
     useState("");
 
@@ -212,6 +219,36 @@ export default function StudentsPage() {
       ),
     },
   ];
+
+  useEffect(() => {
+    loadStudents();
+  }, []);
+
+  async function loadStudents() {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await studentsApi.list({
+        page: 1,
+        limit: 20,
+      });
+      setStudents(response.data  || []);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (loading) {
+    return <div>Loading students...</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
 
   return (
     <div>

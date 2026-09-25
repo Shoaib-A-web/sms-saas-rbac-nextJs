@@ -30,14 +30,14 @@ export default function Header({
     <header
       className=" sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-[var(--color-border)] px-4 ui-glass sm:px-6 "
     >
-      <button
+      <Button
         type="button"
         onClick={onMenuClick}
         className=" rounded-[var(--radius-md)] p-2 hover:bg-[var(--color-surface-muted)] lg:hidden "
         aria-label="Open navigation"
       >
         <Menu size={20} />
-      </button>
+      </Button>
 
       <div className="relative hidden max-w-md flex-1 md:block">
         <Search
