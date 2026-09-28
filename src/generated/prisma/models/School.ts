@@ -286,7 +286,6 @@ export type SchoolOrderByWithRelationInput = {
   employees?: Prisma.EmployeeOrderByRelationAggregateInput
   students?: Prisma.StudentOrderByRelationAggregateInput
   user_roles?: Prisma.UserRoleOrderByRelationAggregateInput
-  _relevance?: Prisma.SchoolOrderByRelevanceInput
 }
 
 export type SchoolWhereUniqueInput = Prisma.AtLeast<{
@@ -458,12 +457,6 @@ export type SchoolUncheckedUpdateManyInput = {
   status?: Prisma.EnumSchoolStatusFieldUpdateOperationsInput | $Enums.SchoolStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type SchoolOrderByRelevanceInput = {
-  fields: Prisma.SchoolOrderByRelevanceFieldEnum | Prisma.SchoolOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type SchoolCountOrderByAggregateInput = {
@@ -1001,7 +994,33 @@ export type SchoolSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   _count?: boolean | Prisma.SchoolCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["school"]>
 
+export type SchoolSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  name?: boolean
+  code?: boolean
+  email?: boolean
+  phone?: boolean
+  address?: boolean
+  city?: boolean
+  country?: boolean
+  status?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+}, ExtArgs["result"]["school"]>
 
+export type SchoolSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  name?: boolean
+  code?: boolean
+  email?: boolean
+  phone?: boolean
+  address?: boolean
+  city?: boolean
+  country?: boolean
+  status?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+}, ExtArgs["result"]["school"]>
 
 export type SchoolSelectScalar = {
   id?: boolean
@@ -1025,6 +1044,8 @@ export type SchoolInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   user_roles?: boolean | Prisma.School$user_rolesArgs<ExtArgs>
   _count?: boolean | Prisma.SchoolCountOutputTypeDefaultArgs<ExtArgs>
 }
+export type SchoolIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type SchoolIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $SchoolPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "School"
@@ -1164,6 +1185,30 @@ export interface SchoolDelegate<ExtArgs extends runtime.Types.Extensions.Interna
   createMany<T extends SchoolCreateManyArgs>(args?: Prisma.SelectSubset<T, SchoolCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Schools and returns the data saved in the database.
+   * @param {SchoolCreateManyAndReturnArgs} args - Arguments to create many Schools.
+   * @example
+   * // Create many Schools
+   * const school = await prisma.school.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Schools and only return the `id`
+   * const schoolWithIdOnly = await prisma.school.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends SchoolCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, SchoolCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SchoolPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a School.
    * @param {SchoolDeleteArgs} args - Arguments to delete one School.
    * @example
@@ -1226,6 +1271,36 @@ export interface SchoolDelegate<ExtArgs extends runtime.Types.Extensions.Interna
    * 
    */
   updateMany<T extends SchoolUpdateManyArgs>(args: Prisma.SelectSubset<T, SchoolUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Schools and returns the data updated in the database.
+   * @param {SchoolUpdateManyAndReturnArgs} args - Arguments to update many Schools.
+   * @example
+   * // Update many Schools
+   * const school = await prisma.school.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Schools and only return the `id`
+   * const schoolWithIdOnly = await prisma.school.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends SchoolUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, SchoolUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SchoolPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one School.
@@ -1668,6 +1743,25 @@ export type SchoolCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * School createManyAndReturn
+ */
+export type SchoolCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the School
+   */
+  select?: Prisma.SchoolSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the School
+   */
+  omit?: Prisma.SchoolOmit<ExtArgs> | null
+  /**
+   * The data used to create many Schools.
+   */
+  data: Prisma.SchoolCreateManyInput | Prisma.SchoolCreateManyInput[]
+  skipDuplicates?: boolean
+}
+
+/**
  * School update
  */
 export type SchoolUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1697,6 +1791,32 @@ export type SchoolUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
  * School updateMany
  */
 export type SchoolUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * The data used to update Schools.
+   */
+  data: Prisma.XOR<Prisma.SchoolUpdateManyMutationInput, Prisma.SchoolUncheckedUpdateManyInput>
+  /**
+   * Filter which Schools to update
+   */
+  where?: Prisma.SchoolWhereInput
+  /**
+   * Limit how many Schools to update.
+   */
+  limit?: number
+}
+
+/**
+ * School updateManyAndReturn
+ */
+export type SchoolUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the School
+   */
+  select?: Prisma.SchoolSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the School
+   */
+  omit?: Prisma.SchoolOmit<ExtArgs> | null
   /**
    * The data used to update Schools.
    */

@@ -239,7 +239,6 @@ export type TeacherOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   employee?: Prisma.EmployeeOrderByWithRelationInput
-  _relevance?: Prisma.TeacherOrderByRelevanceInput
 }
 
 export type TeacherWhereUniqueInput = Prisma.AtLeast<{
@@ -346,12 +345,6 @@ export type TeacherUncheckedUpdateManyInput = {
 export type TeacherNullableScalarRelationFilter = {
   is?: Prisma.TeacherWhereInput | null
   isNot?: Prisma.TeacherWhereInput | null
-}
-
-export type TeacherOrderByRelevanceInput = {
-  fields: Prisma.TeacherOrderByRelevanceFieldEnum | Prisma.TeacherOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type TeacherCountOrderByAggregateInput = {
@@ -483,7 +476,25 @@ export type TeacherSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["teacher"]>
 
+export type TeacherSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  employee_id?: boolean
+  qualification?: boolean
+  specialization?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["teacher"]>
 
+export type TeacherSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  employee_id?: boolean
+  qualification?: boolean
+  specialization?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["teacher"]>
 
 export type TeacherSelectScalar = {
   id?: boolean
@@ -496,6 +507,12 @@ export type TeacherSelectScalar = {
 
 export type TeacherOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employee_id" | "qualification" | "specialization" | "created_at" | "updated_at", ExtArgs["result"]["teacher"]>
 export type TeacherInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+}
+export type TeacherIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+}
+export type TeacherIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 
@@ -629,6 +646,30 @@ export interface TeacherDelegate<ExtArgs extends runtime.Types.Extensions.Intern
   createMany<T extends TeacherCreateManyArgs>(args?: Prisma.SelectSubset<T, TeacherCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Teachers and returns the data saved in the database.
+   * @param {TeacherCreateManyAndReturnArgs} args - Arguments to create many Teachers.
+   * @example
+   * // Create many Teachers
+   * const teacher = await prisma.teacher.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Teachers and only return the `id`
+   * const teacherWithIdOnly = await prisma.teacher.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends TeacherCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, TeacherCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeacherPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Teacher.
    * @param {TeacherDeleteArgs} args - Arguments to delete one Teacher.
    * @example
@@ -691,6 +732,36 @@ export interface TeacherDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * 
    */
   updateMany<T extends TeacherUpdateManyArgs>(args: Prisma.SelectSubset<T, TeacherUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Teachers and returns the data updated in the database.
+   * @param {TeacherUpdateManyAndReturnArgs} args - Arguments to update many Teachers.
+   * @example
+   * // Update many Teachers
+   * const teacher = await prisma.teacher.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Teachers and only return the `id`
+   * const teacherWithIdOnly = await prisma.teacher.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends TeacherUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, TeacherUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeacherPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Teacher.
@@ -1125,6 +1196,29 @@ export type TeacherCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Teacher createManyAndReturn
+ */
+export type TeacherCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Teacher
+   */
+  select?: Prisma.TeacherSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Teacher
+   */
+  omit?: Prisma.TeacherOmit<ExtArgs> | null
+  /**
+   * The data used to create many Teachers.
+   */
+  data: Prisma.TeacherCreateManyInput | Prisma.TeacherCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeacherIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Teacher update
  */
 export type TeacherUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1166,6 +1260,36 @@ export type TeacherUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Teachers to update.
    */
   limit?: number
+}
+
+/**
+ * Teacher updateManyAndReturn
+ */
+export type TeacherUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Teacher
+   */
+  select?: Prisma.TeacherSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Teacher
+   */
+  omit?: Prisma.TeacherOmit<ExtArgs> | null
+  /**
+   * The data used to update Teachers.
+   */
+  data: Prisma.XOR<Prisma.TeacherUpdateManyMutationInput, Prisma.TeacherUncheckedUpdateManyInput>
+  /**
+   * Filter which Teachers to update
+   */
+  where?: Prisma.TeacherWhereInput
+  /**
+   * Limit how many Teachers to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeacherIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

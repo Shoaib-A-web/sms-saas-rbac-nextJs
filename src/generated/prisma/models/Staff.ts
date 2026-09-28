@@ -230,7 +230,6 @@ export type StaffOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   employee?: Prisma.EmployeeOrderByWithRelationInput
-  _relevance?: Prisma.StaffOrderByRelevanceInput
 }
 
 export type StaffWhereUniqueInput = Prisma.AtLeast<{
@@ -327,12 +326,6 @@ export type StaffUncheckedUpdateManyInput = {
 export type StaffNullableScalarRelationFilter = {
   is?: Prisma.StaffWhereInput | null
   isNot?: Prisma.StaffWhereInput | null
-}
-
-export type StaffOrderByRelevanceInput = {
-  fields: Prisma.StaffOrderByRelevanceFieldEnum | Prisma.StaffOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type StaffCountOrderByAggregateInput = {
@@ -456,7 +449,23 @@ export type StaffSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["staff"]>
 
+export type StaffSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  employee_id?: boolean
+  department?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["staff"]>
 
+export type StaffSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  employee_id?: boolean
+  department?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["staff"]>
 
 export type StaffSelectScalar = {
   id?: boolean
@@ -468,6 +477,12 @@ export type StaffSelectScalar = {
 
 export type StaffOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employee_id" | "department" | "created_at" | "updated_at", ExtArgs["result"]["staff"]>
 export type StaffInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+}
+export type StaffIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
+}
+export type StaffIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   employee?: boolean | Prisma.EmployeeDefaultArgs<ExtArgs>
 }
 
@@ -600,6 +615,30 @@ export interface StaffDelegate<ExtArgs extends runtime.Types.Extensions.Internal
   createMany<T extends StaffCreateManyArgs>(args?: Prisma.SelectSubset<T, StaffCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Staff and returns the data saved in the database.
+   * @param {StaffCreateManyAndReturnArgs} args - Arguments to create many Staff.
+   * @example
+   * // Create many Staff
+   * const staff = await prisma.staff.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Staff and only return the `id`
+   * const staffWithIdOnly = await prisma.staff.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends StaffCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, StaffCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Staff.
    * @param {StaffDeleteArgs} args - Arguments to delete one Staff.
    * @example
@@ -662,6 +701,36 @@ export interface StaffDelegate<ExtArgs extends runtime.Types.Extensions.Internal
    * 
    */
   updateMany<T extends StaffUpdateManyArgs>(args: Prisma.SelectSubset<T, StaffUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Staff and returns the data updated in the database.
+   * @param {StaffUpdateManyAndReturnArgs} args - Arguments to update many Staff.
+   * @example
+   * // Update many Staff
+   * const staff = await prisma.staff.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Staff and only return the `id`
+   * const staffWithIdOnly = await prisma.staff.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends StaffUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, StaffUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Staff.
@@ -1095,6 +1164,29 @@ export type StaffCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Staff createManyAndReturn
+ */
+export type StaffCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Staff
+   */
+  select?: Prisma.StaffSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Staff
+   */
+  omit?: Prisma.StaffOmit<ExtArgs> | null
+  /**
+   * The data used to create many Staff.
+   */
+  data: Prisma.StaffCreateManyInput | Prisma.StaffCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Staff update
  */
 export type StaffUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1136,6 +1228,36 @@ export type StaffUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Staff to update.
    */
   limit?: number
+}
+
+/**
+ * Staff updateManyAndReturn
+ */
+export type StaffUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Staff
+   */
+  select?: Prisma.StaffSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Staff
+   */
+  omit?: Prisma.StaffOmit<ExtArgs> | null
+  /**
+   * The data used to update Staff.
+   */
+  data: Prisma.XOR<Prisma.StaffUpdateManyMutationInput, Prisma.StaffUncheckedUpdateManyInput>
+  /**
+   * Filter which Staff to update
+   */
+  where?: Prisma.StaffWhereInput
+  /**
+   * Limit how many Staff to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

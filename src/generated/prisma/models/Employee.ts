@@ -282,7 +282,6 @@ export type EmployeeOrderByWithRelationInput = {
   branch?: Prisma.BranchOrderByWithRelationInput
   teacher?: Prisma.TeacherOrderByWithRelationInput
   staff?: Prisma.StaffOrderByWithRelationInput
-  _relevance?: Prisma.EmployeeOrderByRelevanceInput
 }
 
 export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -440,12 +439,6 @@ export type EmployeeListRelationFilter = {
 
 export type EmployeeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type EmployeeOrderByRelevanceInput = {
-  fields: Prisma.EmployeeOrderByRelevanceFieldEnum | Prisma.EmployeeOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type EmployeeSchool_idEmployee_noCompoundUniqueInput = {
@@ -1102,7 +1095,35 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   staff?: boolean | Prisma.Employee$staffArgs<ExtArgs>
 }, ExtArgs["result"]["employee"]>
 
+export type EmployeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  user_id?: boolean
+  school_id?: boolean
+  branch_id?: boolean
+  employee_no?: boolean
+  designation?: boolean
+  joining_date?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  school?: boolean | Prisma.SchoolDefaultArgs<ExtArgs>
+  branch?: boolean | Prisma.Employee$branchArgs<ExtArgs>
+}, ExtArgs["result"]["employee"]>
 
+export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  user_id?: boolean
+  school_id?: boolean
+  branch_id?: boolean
+  employee_no?: boolean
+  designation?: boolean
+  joining_date?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  school?: boolean | Prisma.SchoolDefaultArgs<ExtArgs>
+  branch?: boolean | Prisma.Employee$branchArgs<ExtArgs>
+}, ExtArgs["result"]["employee"]>
 
 export type EmployeeSelectScalar = {
   id?: boolean
@@ -1123,6 +1144,16 @@ export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   branch?: boolean | Prisma.Employee$branchArgs<ExtArgs>
   teacher?: boolean | Prisma.Employee$teacherArgs<ExtArgs>
   staff?: boolean | Prisma.Employee$staffArgs<ExtArgs>
+}
+export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  school?: boolean | Prisma.SchoolDefaultArgs<ExtArgs>
+  branch?: boolean | Prisma.Employee$branchArgs<ExtArgs>
+}
+export type EmployeeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  school?: boolean | Prisma.SchoolDefaultArgs<ExtArgs>
+  branch?: boolean | Prisma.Employee$branchArgs<ExtArgs>
 }
 
 export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1262,6 +1293,30 @@ export interface EmployeeDelegate<ExtArgs extends runtime.Types.Extensions.Inter
   createMany<T extends EmployeeCreateManyArgs>(args?: Prisma.SelectSubset<T, EmployeeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
+   * Create many Employees and returns the data saved in the database.
+   * @param {EmployeeCreateManyAndReturnArgs} args - Arguments to create many Employees.
+   * @example
+   * // Create many Employees
+   * const employee = await prisma.employee.createManyAndReturn({
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Create many Employees and only return the `id`
+   * const employeeWithIdOnly = await prisma.employee.createManyAndReturn({
+   *   select: { id: true },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  createManyAndReturn<T extends EmployeeCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, EmployeeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+  /**
    * Delete a Employee.
    * @param {EmployeeDeleteArgs} args - Arguments to delete one Employee.
    * @example
@@ -1324,6 +1379,36 @@ export interface EmployeeDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    * 
    */
   updateMany<T extends EmployeeUpdateManyArgs>(args: Prisma.SelectSubset<T, EmployeeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
+
+  /**
+   * Update zero or more Employees and returns the data updated in the database.
+   * @param {EmployeeUpdateManyAndReturnArgs} args - Arguments to update many Employees.
+   * @example
+   * // Update many Employees
+   * const employee = await prisma.employee.updateManyAndReturn({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * 
+   * // Update zero or more Employees and only return the `id`
+   * const employeeWithIdOnly = await prisma.employee.updateManyAndReturn({
+   *   select: { id: true },
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: [
+   *     // ... provide data here
+   *   ]
+   * })
+   * Note, that providing `undefined` is treated as the value not being there.
+   * Read more here: https://pris.ly/d/null-undefined
+   * 
+   */
+  updateManyAndReturn<T extends EmployeeUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, EmployeeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Employee.
@@ -1765,6 +1850,29 @@ export type EmployeeCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Employee createManyAndReturn
+ */
+export type EmployeeCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Employee
+   */
+  select?: Prisma.EmployeeSelectCreateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Employee
+   */
+  omit?: Prisma.EmployeeOmit<ExtArgs> | null
+  /**
+   * The data used to create many Employees.
+   */
+  data: Prisma.EmployeeCreateManyInput | Prisma.EmployeeCreateManyInput[]
+  skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeIncludeCreateManyAndReturn<ExtArgs> | null
+}
+
+/**
  * Employee update
  */
 export type EmployeeUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1806,6 +1914,36 @@ export type EmployeeUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Employees to update.
    */
   limit?: number
+}
+
+/**
+ * Employee updateManyAndReturn
+ */
+export type EmployeeUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Employee
+   */
+  select?: Prisma.EmployeeSelectUpdateManyAndReturn<ExtArgs> | null
+  /**
+   * Omit specific fields from the Employee
+   */
+  omit?: Prisma.EmployeeOmit<ExtArgs> | null
+  /**
+   * The data used to update Employees.
+   */
+  data: Prisma.XOR<Prisma.EmployeeUpdateManyMutationInput, Prisma.EmployeeUncheckedUpdateManyInput>
+  /**
+   * Filter which Employees to update
+   */
+  where?: Prisma.EmployeeWhereInput
+  /**
+   * Limit how many Employees to update.
+   */
+  limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

@@ -45,11 +45,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider>
-          <DashboardShell>
-            {children}
-          </DashboardShell>
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );
