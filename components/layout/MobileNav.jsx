@@ -13,10 +13,14 @@ import {
 const navigation = [
   {
     label: "Home",
-    href: "/dashboard",
+    href: "/",
     icon: LayoutDashboard,
   },
-
+  // {
+  //   label: "Home",
+  //   href: "/dashboard",
+  //   icon: LayoutDashboard,
+  // },
   {
     label: "Students",
     href: "/students",

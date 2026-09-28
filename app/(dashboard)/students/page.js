@@ -76,8 +76,7 @@ const students = [
 ];
 
 export default function StudentsPage() {
-  // const [students, setStudents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const [search, setSearch] =
@@ -219,27 +218,6 @@ export default function StudentsPage() {
       ),
     },
   ];
-
-  useEffect(() => {
-    loadStudents();
-  }, []);
-
-  async function loadStudents() {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const response = await studentsApi.list({
-        page: 1,
-        limit: 20,
-      });
-      setStudents(response.data  || []);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   if (loading) {
     return <div>Loading students...</div>;

@@ -17,6 +17,9 @@ import Dropdown, {
 import {
   useTheme,
 } from "@/components/theme/ThemeProvider";
+import { authApi } from "@/lib/api/auth";
+import { useRouter } from "next/navigation";
+
 
 export default function Header({
   onMenuClick,
@@ -25,6 +28,19 @@ export default function Header({
     settings,
     updateSetting,
   } = useTheme();
+  const router = useRouter();
+
+  async function logOut(){
+  
+    try {
+      const result= await authApi.logout();
+      // window.location.href = "/login"; 
+      router.push("/login")
+
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  }
 
   return (
     <header
@@ -151,7 +167,7 @@ export default function Header({
             Account Settings
           </DropdownItem>
 
-          <DropdownItem danger>
+          <DropdownItem onClick={logOut} danger>
             Sign out
           </DropdownItem>
         </Dropdown>

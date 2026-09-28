@@ -1,0 +1,366 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+}
+
+datasource db {
+  //provider = "mysql"
+  provider = "postgres"
+}
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum SchoolStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum BranchStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum RoleStatus {
+  ACTIVE
+  INACTIVE
+}
+
+// ============================================================
+// USERS
+// ============================================================
+
+model User {
+  id            BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
+  name          String     @db.VarChar(150)
+  email         String     @unique @db.VarChar(191)
+  password_hash String     @db.VarChar(255)
+  phone         String?    @db.VarChar(30)
+  status        UserStatus @default(ACTIVE)
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+
+  // Relations
+  employee       Employee?
+  student        Student?
+  sessions       Session[]
+  accounts       Account[]
+  refresh_tokens RefreshToken[]
+  user_roles     UserRole[]
+
+  @@map("users")
+}
+
+// ============================================================
+// SCHOOLS
+// ============================================================
+
+model School {
+  id         BigInt       @id @default(autoincrement()) @db.UnsignedBigInt
+  name       String       @db.VarChar(150)
+  code       String       @unique @db.VarChar(50)
+  email      String?      @db.VarChar(191)
+  phone      String?      @db.VarChar(30)
+  address    String?      @db.Text
+  city       String?      @db.VarChar(100)
+  country    String       @default("India") @db.VarChar(100)
+  status     SchoolStatus @default(ACTIVE)
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+
+  // Relations
+  branches   Branch[]
+  employees  Employee[]
+  students   Student[]
+  user_roles UserRole[]
+
+  @@map("schools")
+}
+
+// ============================================================
+// BRANCHES
+// ============================================================
+
+model Branch {
+  id         BigInt       @id @default(autoincrement()) @db.UnsignedBigInt
+  school_id  BigInt       @db.UnsignedBigInt
+  name       String       @db.VarChar(150)
+  code       String       @db.VarChar(50)
+  address    String?      @db.Text
+  city       String?      @db.VarChar(100)
+  status     BranchStatus @default(ACTIVE)
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+
+  // Relations
+  school     School     @relation(fields: [school_id], references: [id], onDelete: Cascade)
+  employees  Employee[]
+  students   Student[]
+  user_roles UserRole[]
+
+  @@unique([school_id, code])
+  @@index([school_id])
+  @@map("branches")
+}
+
+// ============================================================
+// EMPLOYEES
+// ============================================================
+
+model Employee {
+  id           BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  user_id      BigInt    @unique @db.UnsignedBigInt
+  school_id    BigInt    @db.UnsignedBigInt
+  branch_id    BigInt?   @db.UnsignedBigInt
+  employee_no  String    @db.VarChar(50)
+  designation  String?   @db.VarChar(100)
+  joining_date DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  // Relations
+  user    User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  school  School   @relation(fields: [school_id], references: [id], onDelete: Restrict)
+  branch  Branch?  @relation(fields: [branch_id], references: [id], onDelete: SetNull)
+  teacher Teacher?
+  staff   Staff?
+
+  // Employee number is unique inside a school
+  @@unique([school_id, employee_no])
+  @@index([user_id])
+  @@index([school_id])
+  @@index([branch_id])
+  @@map("employees")
+}
+
+// ============================================================
+// TEACHERS
+// ============================================================
+
+model Teacher {
+  id             BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  employee_id    BigInt   @unique @db.UnsignedBigInt
+  qualification  String?  @db.VarChar(150)
+  specialization String?  @db.VarChar(150)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+
+  @@map("teachers")
+}
+
+// ============================================================
+// STAFF
+// ============================================================
+
+model Staff {
+  id          BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  employee_id BigInt   @unique @db.UnsignedBigInt
+  department  String?  @db.VarChar(100)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+
+  @@map("staff")
+}
+
+// ============================================================
+// STUDENTS
+// ============================================================
+
+model Student {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  user_id        BigInt?   @unique @db.UnsignedBigInt
+  school_id      BigInt    @db.UnsignedBigInt
+  branch_id      BigInt    @db.UnsignedBigInt
+  student_no     String    @db.VarChar(50)
+  first_name     String    @db.VarChar(100)
+  last_name      String?   @db.VarChar(100)
+  date_of_birth  DateTime?
+  gender         String?   @db.VarChar(30)
+  phone          String?   @db.VarChar(30)
+  address        String?   @db.Text
+  admission_date DateTime?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+
+  // Relations
+  user   User?  @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  school School @relation(fields: [school_id], references: [id], onDelete: Restrict)
+  branch Branch @relation(fields: [branch_id], references: [id], onDelete: Restrict)
+
+  // Student number is unique inside a school
+  @@unique([school_id, student_no])
+  @@index([user_id])
+  @@index([school_id])
+  @@index([branch_id])
+  @@map("students")
+}
+
+// ============================================================
+// ROLES
+// ============================================================
+
+model Role {
+  id          BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
+  name        String     @unique @db.VarChar(100)
+  description String?    @db.VarChar(255)
+  status      RoleStatus @default(ACTIVE)
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+
+  // Relations
+  user_roles       UserRole[]
+  role_permissions RolePermission[]
+
+  @@map("roles")
+}
+
+// ============================================================
+// PERMISSIONS
+// ============================================================
+
+model Permission {
+  id          BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  name        String   @unique @db.VarChar(150)
+  description String?  @db.VarChar(255)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  // Relations
+  role_permissions RolePermission[]
+
+  @@map("permissions")
+}
+
+// ============================================================
+// ROLE PERMISSIONS
+// ============================================================
+
+model RolePermission {
+  role_id       BigInt   @db.UnsignedBigInt
+  permission_id BigInt   @db.UnsignedBigInt
+  created_at    DateTime @default(now())
+
+  // Relations
+  role Role @relation(fields: [role_id], references: [id], onDelete: Cascade)
+
+  permission Permission @relation(fields: [permission_id], references: [id], onDelete: Cascade)
+
+  @@id([role_id, permission_id])
+  @@index([permission_id])
+  @@map("role_permissions")
+}
+
+// ============================================================
+// USER ROLES
+// ============================================================
+
+model UserRole {
+  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  user_id    BigInt   @db.UnsignedBigInt
+  role_id    BigInt   @db.UnsignedBigInt
+  school_id  BigInt?  @db.UnsignedBigInt
+  branch_id  BigInt?  @db.UnsignedBigInt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  role Role @relation(fields: [role_id], references: [id], onDelete: Cascade)
+
+  school School? @relation(fields: [school_id], references: [id], onDelete: Cascade)
+
+  branch Branch? @relation(fields: [branch_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([role_id])
+  @@index([school_id])
+  @@index([branch_id])
+  @@map("user_roles")
+}
+
+// ============================================================
+// SESSIONS
+// ============================================================
+
+model Session {
+  id            BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  session_token String   @unique @db.VarChar(255)
+  user_id       BigInt   @db.UnsignedBigInt
+  expires       DateTime
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([expires])
+  @@map("sessions")
+}
+
+// ============================================================
+// ACCOUNTS
+// ============================================================
+
+model Account {
+  id                  BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  user_id             BigInt   @db.UnsignedBigInt
+  type                String   @db.VarChar(50)
+  provider            String   @db.VarChar(100)
+  provider_account_id String   @db.VarChar(191)
+  refresh_token       String?  @db.Text
+  access_token        String?  @db.Text
+  expires_at          Int?
+  token_type          String?  @db.VarChar(50)
+  scope               String?  @db.VarChar(255)
+  id_token            String?  @db.Text
+  session_state       String?  @db.VarChar(255)
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, provider_account_id])
+  @@index([user_id])
+  @@map("accounts")
+}
+
+// ============================================================
+// REFRESH TOKENS
+// ============================================================
+
+model RefreshToken {
+  id           BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  user_id      BigInt    @db.UnsignedBigInt
+  token_hash   String    @unique @db.VarChar(255)
+  device_id    String?   @db.VarChar(255)
+  expires_at   DateTime
+  revoked_at   DateTime?
+  last_used_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  // Relations
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([expires_at])
+  @@index([revoked_at])
+  @@map("refresh_tokens")
+}

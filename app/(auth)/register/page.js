@@ -1,11 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { UserPlus, Eye, EyeOff } from "lucide-react";
 
 import  Input  from "@/components/ui/Input";
 import  Button  from "@/components/ui/Button";
+import { schoolsApi } from "@/lib/api/schools";
+import Dropdown from "@/components/ui/Dropdown";
+import Select from "@/components/ui/Select";
+import { branchesApi } from "@/lib/api/branches";
+import { rolesApi } from "@/lib/api/roles";
+import { authApi } from "@/lib/api/auth";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -14,14 +20,51 @@ export default function RegisterPage() {
     phone: "",
     password: "",
     confirmPassword: "",
+    school:"",
+    branch:"",
+    role:"",
   });
-
+  const [schools, setSchools] = useState("");
+  const [branches, setbranches] = useState("");
+  const [roles, setRoles] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(()=>{
+    loadeSchools();
+    loadeRoles();
+  },[]
+  )
+
+  useEffect(()=>{
+    const schoolId = form.school
+    if(schoolId !== ""){
+      findBranches(schoolId)
+    }
+  },[form.school])
+
+  async function loadeSchools(){
+    try {
+      const response = await schoolsApi.list();
+      setSchools( response.data );
+    } catch (error) {
+      console.log("error on listing school at front end;", error)
+    }
+  }
+
+  async function loadeRoles() {
+    try {
+      const response= await rolesApi.list();
+      setRoles(response.data)
+      
+    } catch (error) {
+      console.log("error on listing Roles at front end;", error)
+    }
+    
+  }
 
   const updateField = (field, value) => {
     setForm((current) => ({
@@ -49,7 +92,9 @@ export default function RegisterPage() {
 
     try {
       // Registration API will be connected here.
-      await new Promise((resolve) => setTimeout(resolve, 700));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      const response = await authApi.register(form);
+      console.log("response register done:", response.data)
 
       window.location.href = "/login";
     } catch {
@@ -58,6 +103,15 @@ export default function RegisterPage() {
       setLoading(false);
     }
   };
+
+  async function findBranches(id){
+    try {
+      const response =await branchesApi.getbySchoolId(id)
+      setbranches(response.data)
+    } catch (error) {
+      console.log("Error on finding branchis  registration form", error)
+    }
+  }
 
   return (
     <div>
@@ -81,6 +135,56 @@ export default function RegisterPage() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        
+        <Select
+          id="school-select"
+          label="Select School"
+          hint="Choose the School."
+          onChange={(event) =>
+            updateField("school", event.target.value)
+          }
+        >
+          <option value="">-- Select a School --</option>
+          {schools !== ""  && (
+            schools.filter((school)=> school.status === "ACTIVE").map((school)=> {
+              return <option key= {school.id} value={school.id}>{school.name}</option>
+            })
+          )}
+        </Select>
+
+        { form.school !== "" && (<Select
+          id="school-branch"
+          label="Select Branch"
+          hint="Choose the Branch."
+          onChange={(event)=>
+            updateField("branch", event.target.value)
+          }
+        >
+          <option value="">-- Select a Branch --</option>
+          {branches !== ""  && (
+            branches.filter((branch)=> branch.status === "ACTIVE").map((branch)=> {
+              return <option key= {branch.id} value={branch.id}>{branch.name}</option>
+            })
+          )}
+        </Select>)
+        }
+        
+        <Select
+          id="school-roles"
+          label="Select Role"
+          hint="Choose the Role."
+          onChange={(event) =>
+            updateField("role", event.target.value)
+          }
+        >
+          <option value="">-- Select a role --</option>
+          {roles !== ""  && (
+            roles.map((role)=> {
+              return <option key= {role.id} value={role.id}>{role.name}</option>
+            })
+          )}
+        </Select>
+
         <Input
           label="Full Name"
           placeholder="John Doe"

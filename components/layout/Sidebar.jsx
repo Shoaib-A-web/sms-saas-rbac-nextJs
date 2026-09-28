@@ -16,10 +16,14 @@ import {
 const navigation = [
   {
     label: "Dashboard",
-    href: "/dashboard",
+    href: "/",
     icon: LayoutDashboard,
   },
-
+  // {
+  //   label: "Dashboard",
+  //   href: "/dashboard",
+  //   icon: LayoutDashboard,
+  // },
   {
     label: "Students",
     href: "/students",
@@ -93,7 +97,7 @@ export default function Sidebar({
         {/* Logo */}
         <div className="flex h-16 items-center justify-between border-b border-[var(--color-border)] px-5">
           <Link
-            href="/dashboard"
+            href="/"
             className="flex items-center gap-3"
           >
             <div className=" flex size-9 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-primary)] text-sm font-bold text-[var(--color-primary-foreground)] ">

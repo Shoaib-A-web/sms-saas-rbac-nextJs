@@ -31,6 +31,7 @@
 
 // app/layout.js
 
+import DashboardShell from "@/components/layout/DashboardShell";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
@@ -45,7 +46,9 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          {children}
+          <DashboardShell>
+            {children}
+          </DashboardShell>
         </ThemeProvider>
       </body>
     </html>

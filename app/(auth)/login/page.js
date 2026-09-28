@@ -4,10 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 
+import { useRouter } from "next/navigation";
+
 import  Input  from "@/components/ui/Input";
 import  Button  from "@/components/ui/Button";
+import { authApi } from "@/lib/api/auth";
 
 export default function LoginPage() {
+  const router= useRouter();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -31,18 +36,20 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const result = await signIn("credentials", {
-        email: form.email,
-        password: form.password,
-        redirect: false,
-      });
+      // const result = await signIn("credentials", {
+      //   email: form.email,
+      //   password: form.password,
+      //   redirect: false,
+      // });
+
+      const result = await authApi.login({email:form.email, password: form.password})
 
       if (result?.error) {
         setError("Invalid email or password.");
         return;
       }
-
-      window.location.href = "/dashboard";
+      router.push("/");
+      router.refresh();
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
