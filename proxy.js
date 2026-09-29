@@ -8,6 +8,7 @@ const protectedRoutes = [
   "/school",
   "/students",
   "/teachers",
+  "/master",
   "/settings",
 ];
 
@@ -63,6 +64,7 @@ export const config = {
     "/students/:path*",
     "/teachers/:path*",
     "/settings/:path*",
+    "/master/:path*",
     "/login",
     "/register",
     "/forgot-password",
